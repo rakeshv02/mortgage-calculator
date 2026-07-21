@@ -1,851 +1,255 @@
-import React, { useState, useMemo } from 'react';
+import { useState } from "react";
 
-// Comprehensive word list with definitions (8000+ common English words)
-const WORD_DEFINITIONS = {
-  'roams': 'wanders freely',
-  'solar': 'relating to the sun',
-  'moans': 'makes a low sound',
-  'roast': 'cook with dry heat',
-  'soar': 'fly high',
-  'mars': 'damages or spoils',
-  'arms': 'limbs or weapons',
-  'rams': 'male sheep or pushes',
-  'oars': 'rowing implements',
-  'aromas': 'pleasant smells',
-  'roams': 'wanders',
-  'soars': 'flies high',
-  'morals': 'principles of right conduct',
-  'moras': 'delays',
-  'atoms': 'smallest units of matter',
-  'moats': 'water-filled ditches',
-  'stomp': 'step heavily',
-  'storm': 'violent weather',
-  'morse': 'walrus (archaic)',
-  'stoma': 'small opening',
-  'roams': 'wanders freely',
-  'rooms': 'enclosed spaces',
-  'boars': 'wild pigs',
-  'boast': 'brag about',
-  'toast': 'browned bread',
-  'coast': 'shoreline',
-  'roast': 'cook with heat',
-  'smart': 'intelligent or stylish',
-  'scare': 'frighten',
-  'stare': 'gaze intently',
-  'tears': 'rips or cries',
-  'rates': 'speeds or prices',
-  'crate': 'wooden box',
-  'trace': 'mark or follow',
-  'cares': 'shows concern',
-  'races': 'competitions',
-  'acres': 'land measurements',
-  'scare': 'frighten',
-  'scale': 'climb or size',
-  'clear': 'transparent or obvious',
-  'steal': 'take without permission',
-  'stale': 'not fresh',
-  'least': 'smallest amount',
-  'steal': 'thieve',
-  'slate': 'gray rock',
-  'tales': 'stories',
-  'steal': 'rob',
-  'tease': 'make fun of',
-  'please': 'make happy',
-  'speak': 'use words',
-  'peaks': 'mountain tops',
-  'leaks': 'holes or escapes',
-  'steak': 'cut of meat',
-  'sneak': 'move secretly',
-  'dream': 'nocturnal vision',
-  'drams': 'small drinks',
-  'armed': 'equipped with weapons',
-  'dames': 'women (old-fashioned)',
-  'dares': 'challenges',
-  'reads': 'looks at words',
-  'dreads': 'fears greatly',
-  'thread': 'thin strand',
-  'thread': 'pass through',
-  'trader': 'buys and sells',
-  'tread': 'step on',
-  'dear': 'loved one or expensive',
-  'dare': 'challenge',
-  'read': 'look at words',
-  'dread': 'fear greatly',
-  'trade': 'exchange goods',
-  'thread': 'thin cord',
-  'heart': 'organ that pumps blood',
-  'earth': 'the planet',
-  'hater': 'one who dislikes',
-  'heard': 'past tense of hear',
-  'tread': 'walk on',
-  'trade': 'business exchange',
-  'haters': 'ones who dislike',
-  'hearts': 'pumping organs',
-  'earths': 'planets or soil',
-  'thread': 'thin strand',
-  'threads': 'thin strands',
-  'threads': 'conversations online',
-  'bread': 'baked good',
-  'beard': 'facial hair',
-  'breads': 'loaves',
-  'beards': 'facial hair growths',
-  'adore': 'love deeply',
-  'oared': 'rowed',
-  'adored': 'loved deeply',
-  'robed': 'wearing a robe',
-  'bored': 'not interested',
-  'bored': 'drilled a hole',
-  'robed': 'dressed in robes',
-  'bead': 'small decorative ball',
-  'bred': 'raised animals',
-  'braid': 'woven strands',
-  'beard': 'face hair',
-  'beads': 'small balls',
-  'bride': 'woman on wedding day',
-  'braids': 'woven hair',
-  'boards': 'wooden planks',
-  'broads': 'wide areas (informal)',
-  'rapids': 'fast water',
-  'rapids': 'quick currents',
-  'spread': 'cover widely',
-  'spreads': 'covers',
-  'drapes': 'window curtains',
-  'spared': 'gave mercifully',
-  'spade': 'digging tool',
-  'spades': 'digging tools',
-  'spades': 'suit in cards',
-  'grasped': 'held tightly',
-  'gasped': 'breathed sharply',
-  'grasp': 'hold firmly',
-  'grasp': 'understand',
-  'grasp': 'seize',
-  'grass': 'green plant',
-  'grasps': 'holds',
-  'gasps': 'sharp breaths',
-  'spare': 'extra or show mercy',
-  'spear': 'long pointed weapon',
-  'spares': 'extras',
-  'spears': 'pointed weapons',
-  'paste': 'adhesive substance',
-  'tapes': 'adhesive strips',
-  'pates': 'heads (old)',
-  'sedate': 'calm and dignified',
-  'sedates': 'calms with drugs',
-  'sated': 'fully satisfied',
-  'stated': 'said formally',
-  'states': 'nations or conditions',
-  'dates': 'calendar days or fruits',
-  'haste': 'hurry',
-  'waste': 'garbage or squander',
-  'waist': 'middle of body',
-  'waists': 'body middles',
-  'waste': 'throw away',
-  'taste': 'flavor or experience',
-  'tasted': 'experienced flavor',
-  'tastes': 'flavors',
-  'taste': 'sense of flavor',
-  'tasty': 'delicious',
-  'steam': 'water vapor',
-  'teams': 'groups working together',
-  'steams': 'water vapor rises',
-  'seam': 'stitched line',
-  'seams': 'stitched lines',
-  'meat': 'animal flesh food',
-  'mate': 'friend or partner',
-  'mated': 'paired for breeding',
-  'mates': 'friends',
-  'meats': 'animal foods',
-  'steam': 'hot water vapor',
-  'tames': 'makes gentle',
-  'sedate': 'calm',
-  'teams': 'groups',
-  'meats': 'flesh foods',
-  'stream': 'flowing water',
-  'master': 'skilled person',
-  'streams': 'flowing waters',
-  'master': 'expert',
-  'masters': 'experts',
-  'stream': 'small river',
-  'stream': 'flow steadily',
-  'smart': 'intelligent',
-  'smart': 'fashionable',
-  'smarts': 'stings',
-  'smart': 'witty remark',
-  'storm': 'violent weather',
-  'storms': 'weather events',
-  'straw': 'drinking tube',
-  'straws': 'tubes',
-  'warts': 'skin growths',
-  'wart': 'skin growth',
-  'warm': 'pleasantly hot',
-  'warm': 'show affection',
-  'warms': 'heats',
-  'swarm': 'crowd of insects',
-  'swarms': 'insect groups',
-  'warms': 'makes warm',
-  'warm': 'friendly',
-  'wards': 'hospital sections',
-  'ward': 'protect',
-  'draw': 'sketch or pull',
-  'drawn': 'pulled or sketched',
-  'draws': 'sketches',
-  'draws': 'pulls',
-  'drawer': 'storage compartment',
-  'drawers': 'storage boxes',
-  'reward': 'prize',
-  'rewards': 'prizes',
-  'reward': 'give prize',
-  'rewards': 'gives prizes',
-  'sword': 'long blade weapon',
-  'swords': 'blade weapons',
-  'words': 'units of speech',
-  'word': 'unit of speech',
-  'wore': 'had on clothing',
-  'more': 'greater amount',
-  'sore': 'painful',
-  'store': 'shop or keep',
-  'stole': 'took without permission',
-  'stole': 'draped garment',
-  'stoles': 'draped garments',
-  'stores': 'shops',
-  'stores': 'keeps',
-  'sores': 'painful areas',
-  'score': 'points earned',
-  'scored': 'earned points',
-  'scores': 'points',
-  'scores': 'many',
-  'horse': 'four-legged animal',
-  'horses': 'animals',
-  'horse': 'athletic equipment',
-  'hoarse': 'rough voice',
-  'shore': 'beach or coast',
-  'shores': 'beaches',
-  'shore': 'support or brace',
-  'shored': 'braced up',
-  'shores': 'supports',
-  'snore': 'sleep sound',
-  'snores': 'sleep sounds',
-  'snored': 'made sleep sound',
-  'sworn': 'made an oath',
-  'sworn': 'declared under oath',
-  'swore': 'made oath',
-  'swore': 'used profanity',
-  'wars': 'armed conflicts',
-  'war': 'armed conflict',
-  'soar': 'fly high',
-  'soared': 'flew high',
-  'soars': 'flies high',
-  'roam': 'wander freely',
-  'roams': 'wanders freely',
-  'roamed': 'wandered',
-  'roamer': 'one who wanders',
-  'roamers': 'wanderers',
-  'roaming': 'wandering',
-  'room': 'enclosed space',
-  'rooms': 'enclosed spaces',
-  'rooms': 'enough space',
-  'roomy': 'spacious',
-  'zoom': 'move quickly',
-  'zooms': 'speeds',
-  'zoomed': 'moved quickly',
-  'boom': 'loud sound',
-  'booms': 'loud sounds',
-  'boomed': 'made loud sound',
-  'boom': 'prosperity',
-  'boomer': 'one born in boom',
-  'boomers': 'generation',
-  'bloom': 'flower or flourish',
-  'blooms': 'flowers',
-  'bloomed': 'flowered',
-  'blooming': 'flowering',
-  'groom': 'bridegroom or clean',
-  'grooms': 'bridegrooms',
-  'groomed': 'cleaned and prepared',
-  'grooming': 'preparing',
-  'broom': 'sweeping tool',
-  'brooms': 'sweeping tools',
-  'brood': 'think deeply or young animals',
-  'broods': 'young animal groups',
-  'brooded': 'thought deeply',
-  'brooding': 'thinking deeply',
-  'stood': 'was standing',
-  'stood': 'endured',
-  'food': 'something to eat',
-  'foods': 'things to eat',
-  'good': 'of high quality',
-  'goods': 'merchandise',
-  'goods': 'positive things',
-  'good': 'kind person',
-  'hood': 'covering or neighborhood',
-  'hoods': 'coverings',
-  'hoods': 'neighborhoods',
-  'wood': 'tree material',
-  'woods': 'forests or tree materials',
-  'woods': 'small forests',
-  'woody': 'containing wood',
-  'wool': 'animal fiber',
-  'wools': 'animal fibers',
-  'woolen': 'made of wool',
-  'pool': 'body of water',
-  'pools': 'bodies of water',
-  'pools': 'resources combined',
-  'pooled': 'combined resources',
-  'pooling': 'combining',
-  'cool': 'low temperature or stylish',
-  'cools': 'lowers temperature',
-  'cooled': 'became cool',
-  'cooling': 'becoming cool',
-  'tool': 'instrument or device',
-  'tools': 'devices',
-  'tools': 'uses a tool',
-  'tooled': 'shaped with tool',
-  'tooling': 'shaping',
-  'fool': 'silly person',
-  'fools': 'silly people',
-  'fooled': 'tricked',
-  'foolish': 'silly',
-  'school': 'place of learning',
-  'schools': 'places of learning',
-  'stool': 'seat without back',
-  'stools': 'seats',
-  'stool': 'feces (medical)',
-  'fool': 'make a fool of',
-  'fooling': 'tricking',
-  'fool': 'foolish person',
-  'foals': 'young horses',
-  'foal': 'young horse',
-  'foaled': 'gave birth to foal',
-  'goal': 'objective or score area',
-  'goals': 'objectives',
-  'goal': 'score area in sports',
-  'goals': 'score areas',
-  'coal': 'black mineral fuel',
-  'coals': 'mineral fuels',
-  'coal': 'charred wood',
-  'coaled': 'supplied with coal',
-  'scroll': 'roll of parchment',
-  'scrolls': 'rolls of parchment',
-  'scrolled': 'moved up/down',
-  'scrolling': 'moving',
-  'troll': 'internet troublemaker',
-  'trolls': 'troublemakers',
-  'trolled': 'made trouble online',
-  'trolling': 'causing trouble',
-  'troll': 'mythical creature',
-  'stroll': 'leisurely walk',
-  'strolls': 'leisurely walks',
-  'strolled': 'walked leisurely',
-  'strolling': 'walking',
-  'droll': 'amusing in odd way',
-  'drolly': 'amusingly',
-  'roll': 'turn over',
-  'rolls': 'turns over',
-  'rolled': 'turned over',
-  'rolling': 'turning',
-  'roll': 'bread shape',
-  'rolls': 'bread shapes',
-  'roll': 'drum sound',
-  'rolls': 'drum sounds',
-  'roller': 'cylindrical device',
-  'rollers': 'cylindrical devices',
-  'control': 'manage or restrain',
-  'controls': 'manages',
-  'controlled': 'managed',
-  'controlling': 'managing',
-  'controller': 'person in charge',
-  'controllers': 'persons in charge',
-  'troll': 'mythical creature',
-  'trolley': 'shopping cart',
-  'trolleys': 'shopping carts',
-  'patrol': 'go around checking',
-  'patrols': 'goes around',
-  'patrolled': 'went around checking',
-  'patrolling': 'going around',
-  'patrol': 'group checking area',
-  'patrols': 'groups checking',
-  'patrol': 'police group',
-  'enrolls': 'signs up',
-  'enroll': 'register',
-  'enrolled': 'registered',
-  'enrolling': 'registering',
-  'extol': 'praise enthusiastically',
-  'extols': 'praises',
-  'extolled': 'praised enthusiastically',
-  'extolling': 'praising',
-  'atoll': 'ring-shaped island',
-  'atolls': 'ring islands',
-  'stroll': 'casual walk',
-  'scroll': 'document or move display',
-  'troll': 'mythical creature or troublemaker',
-  'droll': 'amusing',
-  'knoll': 'small hill',
-  'knolls': 'small hills',
-  'poll': 'survey or vote',
-  'polls': 'surveys or votes',
-  'polled': 'surveyed or voted',
-  'polling': 'surveying',
-  'pole': 'long stick',
-  'poles': 'long sticks',
-  'pole': 'north or south pole',
-  'poles': 'earth poles',
-  'poled': 'pushed with pole',
-  'poling': 'pushing',
-  'polecat': 'smelly animal',
-  'sole': 'bottom of foot',
-  'soles': 'bottoms of feet',
-  'sole': 'only one',
-  'soles': 'only ones',
-  'sole': 'type of fish',
-  'soled': 'put sole on shoe',
-  'soling': 'putting sole on',
-  'mole': 'small burrowing animal',
-  'moles': 'burrowing animals',
-  'mole': 'skin marking',
-  'moles': 'skin markings',
-  'mole': 'spy or informant',
-  'moles': 'spies',
-  'molecule': 'group of atoms',
-  'molecules': 'atom groups',
-  'hole': 'opening or cavity',
-  'holes': 'openings',
-  'holed': 'made a hole',
-  'holing': 'making holes',
-  'vole': 'small rodent',
-  'voles': 'small rodents',
-  'role': 'part or function',
-  'roles': 'parts or functions',
-  'dole': 'distribute or money benefit',
-  'doles': 'distributes',
-  'doled': 'distributed',
-  'doling': 'distributing',
-  'dole': 'sadness',
-  'bole': 'tree trunk',
-  'boles': 'tree trunks',
-  'vole': 'rodent',
-  'whole': 'entire amount',
-  'wholes': 'entire amounts',
-  'wholesale': 'in bulk',
-  'wholly': 'completely',
-  'stole': 'took without permission',
-  'stole': 'draped garment',
-  'stolen': 'taken illegally',
-  'stealing': 'taking',
-  'steal': 'take illegally',
-  'steals': 'takes illegally',
-  'stealth': 'sneaky movement',
-  'stealthy': 'sneaky',
-  'deal': 'agreement or distribute cards',
-  'deals': 'agreements',
-  'dealt': 'distributed cards',
-  'dealing': 'distributing',
-  'dealer': 'person who deals',
-  'dealers': 'persons who deal',
-  'ideal': 'perfect',
-  'ideals': 'perfect concepts',
-  'ideal': 'perfect thing',
-  'ideally': 'perfectly',
-  'ordeal': 'difficult experience',
-  'ordeals': 'difficult experiences',
-  'meal': 'food eaten together',
-  'meals': 'food occasions',
-  'meals': 'ground grain',
-  'mealy': 'resembling meal',
-  'zeal': 'enthusiastic dedication',
-  'zeals': 'enthusiasms',
-  'zealot': 'fanatical person',
-  'zealots': 'fanatics',
-  'zealous': 'enthusiastic',
-  'zealously': 'enthusiastically',
-  'heal': 'make well',
-  'heals': 'makes well',
-  'healed': 'made well',
-  'healing': 'making well',
-  'healer': 'one who heals',
-  'healers': 'ones who heal',
-  'health': 'state of wellness',
-  'healthy': 'in good health',
-  'healthily': 'in healthy way',
-  'seal': 'close tightly',
-  'seals': 'closes tightly',
-  'sealed': 'closed tightly',
-  'sealing': 'closing tightly',
-  'seal': 'marine mammal',
-  'seals': 'marine mammals',
-  'seals': 'official marks',
-  'veal': 'calf meat',
-  'peal': 'loud sound',
-  'peals': 'loud sounds',
-  'pealed': 'rang loudly',
-  'pealing': 'ringing',
-  'peal': 'ringing of bells',
-  'teal': 'blue-green color',
-  'teals': 'blue-green colors',
-  'teal': 'type of duck',
-  'teals': 'ducks',
-  'real': 'actually existing',
-  'reals': 'actual things',
-  'real': 'currency',
-  'reals': 'currencies',
-  'reals': 'plural of real',
-  'really': 'actually',
-  'realm': 'kingdom or sphere',
-  'realms': 'kingdoms',
-  'realism': 'concern with facts',
-  'realistic': 'factual',
-  'realistically': 'factually',
-  'realize': 'become aware or achieve',
-  'realizes': 'becomes aware',
-  'realized': 'became aware',
-  'realizing': 'becoming aware',
-  'realization': 'becoming aware',
-  'weal': 'well-being or ridge',
-  'weals': 'well-beings or ridges',
-  'weal': 'welfare',
-  'zeal': 'dedication',
-  'reveal': 'make known',
-  'reveals': 'makes known',
-  'revealed': 'made known',
-  'revealing': 'making known',
-  'appeal': 'make a request',
-  'appeals': 'makes requests',
-  'appealed': 'made a request',
-  'appealing': 'attractive or requesting',
-  'appeal': 'attractive quality',
-  'appeals': 'attractive qualities',
-  'repeal': 'cancel or remove',
-  'repeals': 'cancels',
-  'repealed': 'canceled',
-  'repealing': 'canceling',
-  'repeal': 'cancellation',
-  'repeals': 'cancellations',
-  'conceal': 'hide',
-  'conceals': 'hides',
-  'concealed': 'hid',
-  'concealing': 'hiding',
-  'concealment': 'hiding',
-  'congeal': 'freeze or coagulate',
-  'congeals': 'freezes',
-  'congealed': 'froze',
-  'congealing': 'freezing',
-};
+const fmt = (n) => Number(n).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const fmtD = (n) => Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-const WordUnscrambler = () => {
-  const [input, setText] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
-  const [exactLength, setExactLength] = useState('');
-  const [useExactLength, setUseExactLength] = useState(false);
-  const [startsWith, setStartsWith] = useState('');
-  const [useStartsWith, setUseStartsWith] = useState(false);
-  const [endsWith, setEndsWith] = useState('');
-  const [useEndsWith, setUseEndsWith] = useState(false);
-  const [lockPositions, setLockPositions] = useState(false);
-  const [lockedLetters, setLockedLetters] = useState({});
+function calcMonthly(principal, annualRate, years) {
+  const r = annualRate / 100 / 12;
+  const n = years * 12;
+  if (r === 0) return principal / n;
+  return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+}
 
-  // Generate anagrams
-  const generateAnagrams = (letters) => {
-    const cleaned = letters.toLowerCase().replace(/[^a-z]/g, '');
-    if (cleaned.length === 0) return [];
+export default function App() {
+  const [income, setIncome]       = useState("");
+  const [debts, setDebts]         = useState("");
+  const [down, setDown]           = useState("");
+  const [rate, setRate]           = useState("");
+  const [years, setYears]         = useState("30");
+  const [tax, setTax]             = useState("");
+  const [insurance, setInsurance] = useState("");
+  const [result, setResult]       = useState(null);
 
-    const results = [];
-    const frequency = {};
+  const calculate = () => {
+    const monthlyIncome = parseFloat(income) / 12;
+    const monthlyDebts  = parseFloat(debts) || 0;
+    const downPayment   = parseFloat(down) || 0;
+    const r             = parseFloat(rate);
+    const y             = parseFloat(years);
+    const monthlyTax    = (parseFloat(tax) || 0) / 12;
+    const monthlyIns    = (parseFloat(insurance) || 0) / 12;
+    if (!monthlyIncome || !r || !y) return;
 
-    // Count letter frequencies
-    for (const letter of cleaned) {
-      frequency[letter] = (frequency[letter] || 0) + 1;
-    }
+    // Front-end DTI: 28% of gross monthly income for housing
+    const maxHousingPayment = monthlyIncome * 0.28;
+    // Back-end DTI: 36% of gross monthly income for all debt
+    const maxTotalDebt = monthlyIncome * 0.36;
+    const maxHousingFromBackEnd = maxTotalDebt - monthlyDebts;
+    const conservativeHousing = Math.min(maxHousingPayment, maxTotalDebt - monthlyDebts);
 
-    // Check each word in dictionary
-    for (const word of Object.keys(WORD_DEFINITIONS)) {
-      if (word.length > cleaned.length) continue;
+    // Available for P&I after tax and insurance
+    const availablePI = conservativeHousing - monthlyTax - monthlyIns;
 
-      const wordFreq = {};
-      for (const letter of word) {
-        wordFreq[letter] = (wordFreq[letter] || 0) + 1;
-      }
+    // Work backwards from monthly payment to max loan
+    const rMonthly = r / 100 / 12;
+    const n = y * 12;
+    const maxLoan = availablePI > 0
+      ? (availablePI * (Math.pow(1 + rMonthly, n) - 1)) / (rMonthly * Math.pow(1 + rMonthly, n))
+      : 0;
+    const maxHomePrice = maxLoan + downPayment;
+    const actualMonthly = calcMonthly(maxLoan, r, y);
+    const frontEndDTI = ((actualMonthly + monthlyTax + monthlyIns) / monthlyIncome) * 100;
+    const backEndDTI  = ((actualMonthly + monthlyTax + monthlyIns + monthlyDebts) / monthlyIncome) * 100;
 
-      let isAnagram = true;
-      for (const letter in wordFreq) {
-        if ((frequency[letter] || 0) < wordFreq[letter]) {
-          isAnagram = false;
-          break;
-        }
-      }
+    // Scenarios
+    const scenarios = [
+      { label: "Conservative", pct: 0.25, color: "#22c55e" },
+      { label: "Standard", pct: 0.28, color: "#6366f1" },
+      { label: "Aggressive", pct: 0.36, color: "#f97316" },
+    ].map(s => {
+      const avail = monthlyIncome * s.pct - monthlyTax - monthlyIns;
+      const loan  = avail > 0 ? (avail * (Math.pow(1 + rMonthly, n) - 1)) / (rMonthly * Math.pow(1 + rMonthly, n)) : 0;
+      return { ...s, maxHome: loan + downPayment, monthly: calcMonthly(loan, r, y) };
+    });
 
-      if (isAnagram) {
-        results.push(word);
-      }
-    }
-
-    // Sort by length (longer first), then alphabetically
-    return results.sort((a, b) => b.length - a.length || a.localeCompare(b));
+    setResult({ maxHomePrice, maxLoan, downPayment, actualMonthly, monthlyTax, monthlyIns, monthlyDebts, frontEndDTI, backEndDTI, monthlyIncome, scenarios, conservativeHousing });
   };
 
-  // Apply all filters
-  const filteredResults = useMemo(() => {
-    let results = generateAnagrams(input);
+  const reset = () => { setIncome(""); setDebts(""); setDown(""); setRate(""); setTax(""); setInsurance(""); setResult(null); };
 
-    // Exact length filter
-    if (useExactLength && exactLength) {
-      const len = parseInt(exactLength);
-      results = results.filter(word => word.length === len);
-    }
+  const inputStyle = { width: "100%", padding: "11px 14px", fontSize: "15px", border: "1.5px solid #e5e7eb", borderRadius: "10px", outline: "none", boxSizing: "border-box", fontFamily: "inherit", background: "#fff" };
+  const labelStyle = { display: "block", fontSize: "12px", fontWeight: "700", color: "#374151", marginBottom: "5px", textTransform: "uppercase", letterSpacing: "0.04em" };
 
-    // Starts with filter
-    if (useStartsWith && startsWith) {
-      const firstLetter = startsWith.toLowerCase()[0];
-      results = results.filter(word => word[0] === firstLetter);
-    }
-
-    // Ends with filter
-    if (useEndsWith && endsWith) {
-      const lastLetter = endsWith.toLowerCase()[0];
-      results = results.filter(word => word[word.length - 1] === lastLetter);
-    }
-
-    // Lock positions filter
-    if (lockPositions && Object.keys(lockedLetters).length > 0) {
-      results = results.filter(word => {
-        for (const [pos, letter] of Object.entries(lockedLetters)) {
-          if (word[parseInt(pos)] !== letter.toLowerCase()) {
-            return false;
-          }
-        }
-        return true;
-      });
-    }
-
-    return results;
-  }, [input, useExactLength, exactLength, useStartsWith, startsWith, useEndsWith, endsWith, lockPositions, lockedLetters]);
-
-  const handleLockPosition = (pos, letter) => {
-    if (letter === '') {
-      const newLocked = { ...lockedLetters };
-      delete newLocked[pos];
-      setLockedLetters(newLocked);
-    } else {
-      setLockedLetters({ ...lockedLetters, [pos]: letter.toUpperCase() });
-    }
-  };
-
-  const toggleLockPositions = () => {
-    setLockPositions(!lockPositions);
-    if (!lockPositions) {
-      setLockedLetters({});
-    }
-  };
-
-  const inputLength = input.replace(/[^a-z]/gi, '').length;
+  const dtiColor = (pct) => pct <= 28 ? "#22c55e" : pct <= 36 ? "#f97316" : "#ef4444";
+  const dtiLabel = (pct) => pct <= 28 ? "Excellent" : pct <= 36 ? "Acceptable" : "High Risk";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f9f7f2] to-[#f5f1e8] p-6">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Word Unscrambler
-          </h1>
-          <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Find words from scrambled letters • 100% private • No sign-up required
-          </p>
+    <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+      <style>{`@media print { .no-print { display:none!important; } } html { scroll-behavior: smooth; }`}</style>
+
+      {/* Header */}
+      <div className="no-print" style={{ background: "#fff", borderBottom: "1px solid #e5e7eb", padding: "16px 24px" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <a href="https://tabutility.com" style={{ fontSize: "15px", fontWeight: "700", color: "#6366f1", textDecoration: "none" }}>⌘ Tabutility</a>
+          <button onClick={() => window.print()} style={{ padding: "8px 18px", background: "#0f172a", color: "#fff", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>🖨️ Print / Save PDF</button>
         </div>
+      </div>
 
-        {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          {/* Input Section */}
-          <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Enter Letters
-            </label>
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Type or paste letters (e.g., ROAMS, SOLAR)"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 text-lg"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            />
-            <p className="text-sm text-gray-500 mt-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-              {inputLength} letter{inputLength !== 1 ? 's' : ''} detected
-            </p>
-          </div>
+      <div style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 16px" }}>
+        <h1 style={{ fontSize: "30px", fontWeight: "900", color: "#0f172a", margin: "0 0 6px" }}>Mortgage Affordability Calculator</h1>
+        <p style={{ fontSize: "15px", color: "#6b7280", margin: "0 0 28px" }}>Find out how much house you can afford based on your income, debts, and down payment.</p>
 
-          {/* Filters Toggle */}
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="w-full mb-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-between transition-colors"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            <span className="font-semibold text-gray-700">Filter Results</span>
-            <span className="text-gray-600 text-xl">{showFilters ? '▲' : '▼'}</span>
-          </button>
-
-          {/* Filters Section */}
-          {showFilters && (
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              {/* Exact Length Filter */}
-              <div className="mb-4 flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="exactLength"
-                  checked={useExactLength}
-                  onChange={(e) => setUseExactLength(e.target.checked)}
-                  className="w-5 h-5 rounded cursor-pointer accent-blue-500"
-                />
-                <label htmlFor="exactLength" className="flex-1 text-sm font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Exact Length
-                </label>
-                <input
-                  type="number"
-                  value={exactLength}
-                  onChange={(e) => setExactLength(e.target.value)}
-                  disabled={!useExactLength}
-                  min="2"
-                  max="15"
-                  placeholder="2-15"
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-sm disabled:bg-gray-100"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                />
+        {/* Inputs */}
+        <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "16px", marginBottom: "16px" }}>
+            <div>
+              <label style={labelStyle}>Annual Gross Income</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "13px", top: "50%", transform: "translateY(-50%)", color: "#6b7280", fontWeight: "700" }}>$</span>
+                <input type="number" placeholder="e.g. 80000" value={income} onChange={e => setIncome(e.target.value)} style={{ ...inputStyle, paddingLeft: "26px" }} />
               </div>
-
-              {/* Starts With Filter */}
-              <div className="mb-4 flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="startsWith"
-                  checked={useStartsWith}
-                  onChange={(e) => setUseStartsWith(e.target.checked)}
-                  className="w-5 h-5 rounded cursor-pointer accent-blue-500"
-                />
-                <label htmlFor="startsWith" className="flex-1 text-sm font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Starts With
-                </label>
-                <input
-                  type="text"
-                  value={startsWith}
-                  onChange={(e) => setStartsWith(e.target.value.slice(0, 1))}
-                  disabled={!useStartsWith}
-                  maxLength="1"
-                  placeholder="A"
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-sm uppercase disabled:bg-gray-100"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                />
-              </div>
-
-              {/* Ends With Filter */}
-              <div className="mb-4 flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="endsWith"
-                  checked={useEndsWith}
-                  onChange={(e) => setUseEndsWith(e.target.checked)}
-                  className="w-5 h-5 rounded cursor-pointer accent-blue-500"
-                />
-                <label htmlFor="endsWith" className="flex-1 text-sm font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Ends With
-                </label>
-                <input
-                  type="text"
-                  value={endsWith}
-                  onChange={(e) => setEndsWith(e.target.value.slice(0, 1))}
-                  disabled={!useEndsWith}
-                  maxLength="1"
-                  placeholder="E"
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-sm uppercase disabled:bg-gray-100"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                />
-              </div>
-
-              {/* Lock Positions Toggle */}
-              <div className="flex items-center gap-3 pt-2 border-t border-gray-200">
-                <button
-                  onClick={toggleLockPositions}
-                  className={`px-3 py-1 rounded-lg font-bold text-lg transition-colors ${lockPositions ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}
-                >
-                  {lockPositions ? '🔒' : '🔓'}
-                </button>
-                <span className="text-sm font-medium text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Lock Positions (Wordle/Scrabble)
-                </span>
-              </div>
-
-              {/* Position Lock Grid */}
-              {lockPositions && inputLength > 0 && (
-                <div className="mt-4 p-3 bg-white rounded border border-gray-200">
-                  <p className="text-xs font-semibold text-gray-600 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Click boxes to lock letters in positions:
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    {Array.from({ length: inputLength }).map((_, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-1">
-                        <input
-                          type="text"
-                          maxLength="1"
-                          value={lockedLetters[idx] || ''}
-                          onChange={(e) => handleLockPosition(idx, e.target.value)}
-                          className="w-10 h-10 text-center text-lg font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 uppercase"
-                          placeholder="?"
-                          style={{ fontFamily: 'Inter, sans-serif' }}
-                        />
-                        <span className="text-xs text-gray-500">{idx + 1}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <button
-                    onClick={() => setLockedLetters({})}
-                    className="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
-                  >
-                    Clear All
-                  </button>
-                </div>
-              )}
             </div>
-          )}
+            <div>
+              <label style={labelStyle}>Monthly Debts</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "13px", top: "50%", transform: "translateY(-50%)", color: "#6b7280", fontWeight: "700" }}>$</span>
+                <input type="number" placeholder="Car, student loans..." value={debts} onChange={e => setDebts(e.target.value)} style={{ ...inputStyle, paddingLeft: "26px" }} />
+              </div>
+            </div>
+            <div>
+              <label style={labelStyle}>Down Payment</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "13px", top: "50%", transform: "translateY(-50%)", color: "#6b7280", fontWeight: "700" }}>$</span>
+                <input type="number" placeholder="e.g. 40000" value={down} onChange={e => setDown(e.target.value)} style={{ ...inputStyle, paddingLeft: "26px" }} />
+              </div>
+            </div>
+            <div>
+              <label style={labelStyle}>Interest Rate</label>
+              <div style={{ position: "relative" }}>
+                <input type="number" placeholder="e.g. 6.5" value={rate} onChange={e => setRate(e.target.value)} step="0.01" style={{ ...inputStyle, paddingRight: "30px" }} />
+                <span style={{ position: "absolute", right: "13px", top: "50%", transform: "translateY(-50%)", color: "#6b7280", fontWeight: "700" }}>%</span>
+              </div>
+            </div>
+            <div>
+              <label style={labelStyle}>Loan Term</label>
+              <div style={{ display: "flex", gap: "6px" }}>
+                {["15", "20", "30"].map(y => (
+                  <button key={y} onClick={() => setYears(y)} style={{ flex: 1, padding: "11px 4px", borderRadius: "10px", border: "1.5px solid", borderColor: years === y ? "#6366f1" : "#e5e7eb", background: years === y ? "#6366f1" : "#fff", color: years === y ? "#fff" : "#374151", fontWeight: "700", fontSize: "14px", cursor: "pointer" }}>{y}yr</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label style={labelStyle}>Annual Property Tax</label>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", left: "13px", top: "50%", transform: "translateY(-50%)", color: "#6b7280", fontWeight: "700" }}>$</span>
+                <input type="number" placeholder="Optional" value={tax} onChange={e => setTax(e.target.value)} style={{ ...inputStyle, paddingLeft: "26px" }} />
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button onClick={calculate} disabled={!income || !rate} style={{ flex: 1, padding: "13px", background: (!income || !rate) ? "#e5e7eb" : "#6366f1", color: (!income || !rate) ? "#9ca3af" : "#fff", border: "none", borderRadius: "10px", fontSize: "16px", fontWeight: "700", cursor: (!income || !rate) ? "not-allowed" : "pointer" }}>
+              Calculate Affordability
+            </button>
+            <button onClick={reset} style={{ padding: "13px 20px", background: "#f3f4f6", color: "#374151", border: "none", borderRadius: "10px", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>Reset</button>
+          </div>
         </div>
 
-        {/* Results Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="mb-4">
-            <h2 className="text-lg font-bold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Results {filteredResults.length > 0 && <span className="text-blue-500">({filteredResults.length})</span>}
-            </h2>
-          </div>
+        {result && (
+          <>
+            {/* Hero result */}
+            <div style={{ background: "linear-gradient(135deg, #1e1b4b, #4338ca)", borderRadius: "20px", padding: "32px 28px", marginBottom: "16px", color: "#fff" }}>
+              <div style={{ fontSize: "13px", fontWeight: "600", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>You Can Afford Up To</div>
+              <div style={{ fontSize: "52px", fontWeight: "900", lineHeight: 1 }}>${fmt(result.maxHomePrice)}</div>
+              <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginTop: "8px" }}>Loan: ${fmt(result.maxLoan)} · Down: ${fmt(result.downPayment)}</div>
+              <div style={{ marginTop: "24px", display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                {[
+                  { label: "Monthly Payment", value: `$${fmtD(result.actualMonthly)}` },
+                  { label: "Front-End DTI", value: `${result.frontEndDTI.toFixed(1)}%` },
+                  { label: "Back-End DTI", value: `${result.backEndDTI.toFixed(1)}%` },
+                ].map(({ label, value }) => (
+                  <div key={label}>
+                    <div style={{ fontSize: "20px", fontWeight: "800" }}>{value}</div>
+                    <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.6)", marginTop: "2px" }}>{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          {input.trim() === '' ? (
-            <p className="text-gray-500 text-center py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Enter letters above to find words
-            </p>
-          ) : filteredResults.length === 0 ? (
-            <p className="text-gray-500 text-center py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-              No words found with these filters
-            </p>
-          ) : (
-            <div className="space-y-2 max-h-96 overflow-y-auto">
-              {filteredResults.map((word, idx) => (
-                <div key={idx} className="p-3 bg-gradient-to-r from-blue-50 to-transparent rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-lg font-bold text-gray-900 uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {word}
-                      </p>
-                      <p className="text-sm text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {WORD_DEFINITIONS[word] || 'Definition not available'} • {word.length} letter{word.length !== 1 ? 's' : ''}
-                      </p>
-                    </div>
+            {/* DTI gauges */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
+              {[
+                { label: "Front-End DTI", desc: "Housing costs vs income", value: result.frontEndDTI, max: 50 },
+                { label: "Back-End DTI", desc: "All debts vs income", value: result.backEndDTI, max: 60 },
+              ].map(d => (
+                <div key={d.label} style={{ background: "#fff", borderRadius: "14px", padding: "18px 20px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
+                  <div style={{ fontSize: "13px", fontWeight: "700", color: "#374151" }}>{d.label}</div>
+                  <div style={{ fontSize: "11px", color: "#9ca3af", marginBottom: "12px" }}>{d.desc}</div>
+                  <div style={{ background: "#f3f4f6", borderRadius: "6px", height: "10px", marginBottom: "8px", overflow: "hidden" }}>
+                    <div style={{ width: `${Math.min(100, (d.value / d.max) * 100)}%`, height: "100%", background: dtiColor(d.value), borderRadius: "6px", transition: "width 0.5s" }} />
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ fontSize: "20px", fontWeight: "900", color: dtiColor(d.value) }}>{d.value.toFixed(1)}%</span>
+                    <span style={{ fontSize: "12px", fontWeight: "700", color: dtiColor(d.value), alignSelf: "center" }}>{dtiLabel(d.value)}</span>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+
+            {/* 3 Scenarios */}
+            <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "16px" }}>
+              <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>Affordability Scenarios</h2>
+              <p style={{ margin: "0 0 16px", fontSize: "13px", color: "#6b7280" }}>Based on different debt-to-income guidelines</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
+                {result.scenarios.map(s => (
+                  <div key={s.label} style={{ borderRadius: "12px", padding: "18px", border: `2px solid ${s.label === "Standard" ? s.color : "#e5e7eb"}`, background: s.label === "Standard" ? "#f5f3ff" : "#f9fafb" }}>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: s.color, marginBottom: "10px" }}>{s.label} ({(s.pct * 100).toFixed(0)}% DTI)</div>
+                    <div style={{ fontSize: "22px", fontWeight: "900", color: "#0f172a" }}>${fmt(s.maxHome)}</div>
+                    <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>${fmtD(s.monthly)}/mo payment</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Monthly breakdown */}
+            <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "32px" }}>
+              <h2 style={{ margin: "0 0 16px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>Monthly Payment Breakdown</h2>
+              {[
+                { label: "Principal & Interest", value: result.actualMonthly, color: "#6366f1" },
+                { label: "Property Tax", value: result.monthlyTax, color: "#f59e0b" },
+                { label: "Insurance", value: result.monthlyIns, color: "#10b981" },
+                { label: "Other Debts", value: result.monthlyDebts, color: "#ef4444" },
+              ].map(row => (
+                <div key={row.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "11px 0", borderBottom: "1px solid #f3f4f6" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: row.color }} />
+                    <span style={{ fontSize: "14px", color: "#374151" }}>{row.label}</span>
+                  </div>
+                  <span style={{ fontSize: "15px", fontWeight: "700", color: "#111827" }}>${fmtD(row.value)}</span>
+                </div>
+              ))}
+              <div style={{ display: "flex", justifyContent: "space-between", padding: "14px 0 0" }}>
+                <span style={{ fontSize: "15px", fontWeight: "800", color: "#0f172a" }}>Total Monthly</span>
+                <span style={{ fontSize: "18px", fontWeight: "900", color: "#6366f1" }}>${fmtD(result.actualMonthly + result.monthlyTax + result.monthlyIns + result.monthlyDebts)}</span>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Resources */}
+        <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "32px" }}>
+          <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>🏠 Find Your Rate</h2>
+          <p style={{ margin: "0 0 16px", fontSize: "13px", color: "#6b7280" }}>Compare live mortgage rates before you apply</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
+            {[
+              { label: "Today's Mortgage Rates", url: "https://www.bankrate.com/mortgages/mortgage-rates/", source: "Bankrate" },
+              { label: "Mortgage Pre-Approval", url: "https://www.nerdwallet.com/mortgages/pre-approval", source: "NerdWallet" },
+              { label: "First-Time Buyer Guide", url: "https://www.consumerfinance.gov/owning-a-home/", source: "CFPB" },
+              { label: "Down Payment Assistance", url: "https://www.hud.gov/topics/buying_a_home", source: "HUD.gov" },
+            ].map(r => (
+              <a key={r.label} href={r.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", padding: "14px", background: "#f9fafb", borderRadius: "10px", border: "1px solid #e5e7eb", textDecoration: "none", transition: "all 0.2s" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "#6366f1"; e.currentTarget.style.background = "#f5f3ff"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.background = "#f9fafb"; }}>
+                <div style={{ fontSize: "13px", fontWeight: "700", color: "#0f172a", marginBottom: "3px" }}>{r.label}</div>
+                <div style={{ fontSize: "11px", fontWeight: "700", color: "#6366f1", textTransform: "uppercase", letterSpacing: "0.04em" }}>via {r.source} →</div>
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-          <p>✓ All processing happens on your device • No data is stored or shared</p>
+        <div className="no-print" style={{ textAlign: "center" }}>
+          <a href="https://tabutility.com" style={{ fontSize: "14px", color: "#6366f1", textDecoration: "none", fontWeight: "600" }}>← Back to all free tools</a>
         </div>
       </div>
     </div>
   );
-};
-
-export default WordUnscrambler;
+}
