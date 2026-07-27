@@ -1,36 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mortgage Affordability Calculator — How Much House Can I Afford? | Tabutility</title>
-    <meta name="description" content="Free mortgage affordability calculator. Find out how much house you can afford based on your income, debts, and down payment. Shows DTI ratio, monthly payment breakdown, and 3 affordability scenarios. No sign-up." />
-    <meta name="keywords" content="mortgage affordability calculator, how much house can i afford, home affordability calculator, mortgage calculator income, dti calculator, debt to income ratio calculator, free mortgage calculator" />
-    <link rel="canonical" href="https://mortgage-calculator.tabutility.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mortgage-calculator.tabutility.com/" />
-    <meta property="og:title" content="Mortgage Affordability Calculator — How Much House Can I Afford?" />
-    <meta property="og:description" content="Find out how much house you can afford based on your income and debts. Free, no sign-up." />
-    <meta property="og:site_name" content="Tabutility" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Mortgage Affordability Calculator — How Much House Can I Afford?" />
-    <meta name="twitter:description" content="Find out how much house you can afford based on your income and debts. Free, no sign-up." />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>" />
-    <meta name="robots" content="index, follow" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039091592734005" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-78VZWJ5B1W"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-78VZWJ5B1W');
-    </script>
-    <script type="application/ld+json">
-    { "@context": "https://schema.org", "@type": "WebApplication", "name": "Mortgage Affordability Calculator", "url": "https://mortgage-calculator.tabutility.com", "description": "Free mortgage affordability calculator. Find out how much house you can afford based on your income, debts, and down payment.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "provider": { "@type": "Organization", "name": "Tabutility", "url": "https://tabutility.com" } }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mortgage Calculator — Tabutility</title>
+<meta name="description" content="Free mortgage calculator. Calculate monthly repayments, total interest and affordability for any mortgage amount, rate and term."/>
+<meta name="keywords" content="mortgage calculator, mortgage repayment calculator, how much can i borrow, monthly mortgage payment, mortgage affordability"/>
+<link rel="canonical" href="https://mortgage-calculator.tabutility.com/"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>"/>
+<meta property="og:title" content="Mortgage Calculator"/>
+<meta property="og:description" content="Calculate monthly repayments, total interest and affordability for any mortgage."/>
+<meta property="og:url" content="https://mortgage-calculator.tabutility.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Tabutility"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mortgage Calculator"/>
+<meta name="twitter:description" content="Calculate monthly repayments, total interest and affordability for any mortgage."/>
+<meta name="robots" content="index, follow"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-78VZWJ5B1W"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-78VZWJ5B1W');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039091592734005" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Mortgage Calculator","url":"https://mortgage-calculator.tabutility.com/","description":"Free mortgage calculator. Calculate monthly repayments, total interest and affordability for any mortgage amount, rate and term.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"Tabutility","url":"https://tabutility.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tabutility","item":"https://tabutility.com"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://tabutility.com"},{"@type":"ListItem","position":3,"name":"Mortgage Calculator","item":"https://mortgage-calculator.tabutility.com/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is a mortgage payment calculated?","acceptedAnswer":{"@type":"Answer","text":"Using the amortisation formula with principal (price minus deposit), monthly interest rate and number of payments."}},{"@type":"Question","name":"What is LTV?","acceptedAnswer":{"@type":"Answer","text":"Loan-to-Value — the percentage of the property value you're borrowing. Lower LTV usually means better rates."}},{"@type":"Question","name":"Is the Mortgage Calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes — completely free, no sign-up needed."}},{"@type":"Question","name":"Does it work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes — works on any device."}}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+nav{background:#1e293b;border-bottom:1px solid #334155;padding:14px 24px;display:flex;align-items:center;gap:16px}
+nav a{color:#94a3b8;text-decoration:none;font-size:14px}
+nav a:hover{color:#f1f5f9}
+nav .brand{color:#38bdf8;font-weight:700;font-size:18px}
+.ad-banner{background:#1e293b;border-bottom:1px solid #334155;padding:4px;text-align:center}
+#app{max-width:680px;margin:8px auto;padding:0 16px 40px}
+h1{font-size:26px;font-weight:700;color:#f1f5f9;margin:24px 0 6px;text-align:center}
+.subtitle{color:#94a3b8;font-size:14px;text-align:center;margin-bottom:24px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:24px;margin-bottom:16px}
+.cur-row{display:flex;gap:8px;margin-bottom:20px}
+.cur-btn{padding:9px 18px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#94a3b8;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.cur-btn.active{background:#334155;color:#f1f5f9}
+label{display:block;font-size:13px;font-weight:600;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;margin-top:16px}
+label:first-of-type{margin-top:0}
+.input-group{position:relative}
+.input-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:#64748b}
+input[type="number"]{width:100%;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px 14px 12px 36px;color:#f1f5f9;font-size:16px;outline:none;-moz-appearance:textfield;transition:border-color .2s}
+input.no-prefix{padding-left:14px}
+input[type="number"]:focus{border-color:#38bdf8}
+input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
+.btn{display:block;width:100%;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;padding:12px 28px;font-size:15px;font-weight:700;cursor:pointer;margin-top:20px;transition:background .2s}
+.btn:hover{background:#0ea5e9}
+.summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
+.sum-item{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;text-align:center}
+.sum-item.highlight{border-color:#38bdf8}
+.sum-item .val{font-size:22px;font-weight:700;color:#38bdf8}
+.sum-item .lbl{font-size:11px;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.ltv-bar-wrap{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:16px;margin-bottom:0}
+.ltv-bar-bg{background:#1e293b;border-radius:999px;height:10px;overflow:hidden;margin:8px 0}
+.ltv-bar-fill{height:100%;border-radius:999px;transition:width .4s,background .4s}
+.ltv-labels{display:flex;justify-content:space-between;font-size:11px;color:#64748b}
+.hidden{display:none}
+@media(max-width:480px){.summary{grid-template-columns:1fr}.sum-item.highlight{order:-1}}
+</style>
+</head>
+<body>
+<nav><span class="brand">⚡ Tabutility</span><a href="https://tabutility.com">← All Tools</a></nav>
+<div class="ad-banner"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+<div id="app">
+  <h1>🏠 Mortgage Calculator</h1>
+  <p class="subtitle">Calculate monthly repayments and total cost of your mortgage</p>
+  <div class="card">
+    <div class="cur-row">
+      <button class="cur-btn active" onclick="setCur('$','USD')">$ USD</button>
+      <button class="cur-btn" onclick="setCur('£','GBP')">£ GBP</button>
+      <button class="cur-btn" onclick="setCur('€','EUR')">€ EUR</button>
+    </div>
+
+    <label>Property Price</label>
+    <div class="input-group">
+      <span class="input-prefix" id="sym1">$</span>
+      <input type="number" id="price" placeholder="350000" min="0" step="1000"/>
+    </div>
+
+    <label>Deposit / Down Payment</label>
+    <div class="input-group">
+      <span class="input-prefix" id="sym2">$</span>
+      <input type="number" id="deposit" placeholder="35000" min="0" step="1000"/>
+    </div>
+
+    <label>Annual Interest Rate (%)</label>
+    <div class="input-group">
+      <span class="input-prefix" style="font-size:14px;color:#94a3b8">%</span>
+      <input type="number" id="rate" placeholder="4.5" min="0" max="30" step="0.05"/>
+    </div>
+
+    <label>Mortgage Term (years)</label>
+    <div class="input-group">
+      <input type="number" id="term" placeholder="25" min="1" max="40" class="no-prefix"/>
+    </div>
+
+    <button class="btn" onclick="calculate()">Calculate Mortgage</button>
+  </div>
+
+  <div id="results" class="hidden">
+    <div class="card">
+      <div class="summary">
+        <div class="sum-item highlight" style="grid-column:1/-1">
+          <div class="val" id="r-monthly">$0</div>
+          <div class="lbl">Monthly Payment</div>
+        </div>
+        <div class="sum-item"><div class="val" id="r-total">$0</div><div class="lbl">Total Repaid</div></div>
+        <div class="sum-item"><div class="val" id="r-interest">$0</div><div class="lbl">Total Interest</div></div>
+        <div class="sum-item"><div class="val" id="r-principal">$0</div><div class="lbl">Loan Amount</div></div>
+        <div class="sum-item"><div class="val" id="r-ltv-val">0%</div><div class="lbl">LTV (Loan-to-Value)</div></div>
+      </div>
+      <div class="ltv-bar-wrap">
+        <div style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em">Loan-to-Value Ratio</div>
+        <div class="ltv-bar-bg"><div class="ltv-bar-fill" id="ltv-bar" style="width:0%"></div></div>
+        <div class="ltv-labels"><span>0%</span><span>80% (ideal)</span><span>100%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:24px;margin-bottom:8px;padding:0 16px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
+    <h2 style="font-size:15px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px">Related Tools</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+      <a href="https://rent-vs-buy.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Rent vs Buy Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      </a>
+      <a href="https://uk-stamp-duty-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Stamp Duty Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      </a>
+      <a href="https://rental-yield.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Rental Yield Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      </a>
+      <a href="https://loan-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Loan Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:8px;margin-bottom:24px;padding:0 16px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
+    <h2 style="font-size:15px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Frequently Asked Questions</h2>
+    <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
+      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">How is a mortgage payment calculated?</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Using the amortisation formula with principal (price minus deposit), monthly interest rate and number of payments.</div>
+    </div>
+    <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
+      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">What is LTV?</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Loan-to-Value — the percentage of the property value you're borrowing. Lower LTV usually means better rates.</div>
+    </div>
+    <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
+      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">Is this free?</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Yes — completely free, no sign-up needed.</div>
+    </div>
+    <div style="padding:14px 0">
+      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">Works on mobile?</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Yes — works on any device.</div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:8px">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<script>
+let sym = '$';
+function setCur(s) {
+  sym = s;
+  document.getElementById('sym1').textContent = s;
+  document.getElementById('sym2').textContent = s;
+  document.querySelectorAll('.cur-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  if(document.getElementById('price').value) calculate();
+}
+
+function calculate() {
+  const price = parseFloat(document.getElementById('price').value);
+  const deposit = parseFloat(document.getElementById('deposit').value) || 0;
+  const annualRate = parseFloat(document.getElementById('rate').value);
+  const termYears = parseFloat(document.getElementById('term').value);
+  if (!price||!annualRate||!termYears||price<=0) { alert('Please fill in all required fields.'); return; }
+  if (deposit >= price) { alert('Deposit must be less than property price.'); return; }
+
+  const P = price - deposit;
+  const n = termYears * 12;
+  const r = annualRate / 100 / 12;
+
+  let monthly;
+  if (r === 0) { monthly = P / n; }
+  else { monthly = P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }
+
+  const totalRepaid = monthly * n;
+  const totalInterest = totalRepaid - P;
+  const ltv = (P / price) * 100;
+
+  const f = v => sym + Math.round(v).toLocaleString();
+  document.getElementById('r-monthly').textContent = sym + monthly.toFixed(2);
+  document.getElementById('r-total').textContent = f(totalRepaid);
+  document.getElementById('r-interest').textContent = f(totalInterest);
+  document.getElementById('r-principal').textContent = f(P);
+  document.getElementById('r-ltv-val').textContent = ltv.toFixed(1) + '%';
+
+  const ltvColor = ltv <= 60 ? '#34d399' : ltv <= 80 ? '#fbbf24' : '#f87171';
+  document.getElementById('ltv-bar').style.width = Math.min(100, ltv) + '%';
+  document.getElementById('ltv-bar').style.background = ltvColor;
+  document.getElementById('r-ltv-val').style.color = ltvColor;
+
+  document.getElementById('results').classList.remove('hidden');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+</body>
 </html>
