@@ -18,6 +18,10 @@
 <meta name="twitter:title" content="Mortgage Calculator"/>
 <meta name="twitter:description" content="Calculate monthly repayments, total interest and affordability for any mortgage."/>
 <meta name="robots" content="index, follow"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-78VZWJ5B1W"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-78VZWJ5B1W');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039091592734005" crossorigin="anonymous"></script>
@@ -64,7 +68,8 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 </head>
 <body>
 <nav><span class="brand">⚡ Tabutility</span><a href="https://tabutility.com">← All Tools</a></nav>
-<div class="ad-banner"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+<div class="ad-banner" style="min-height:90px"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
 <div id="app">
   <h1>🏠 Mortgage Calculator</h1>
   <p class="subtitle">Calculate monthly repayments and total cost of your mortgage</p>
@@ -164,9 +169,9 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
   </div>
 </div>
 
-<div style="text-align:center;padding:8px">
+<div style="text-align:center;padding:8px;min-height:250px">
   <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  
 </div>
 
 <script>
@@ -226,5 +231,27 @@ function calculate() {
     <span style="font-size:11px;color:#475569;margin-left:12px">Free to use — attribution appreciated but not required</span>
   </div>
 </div>
+<script>
+(function(){
+  var ins=document.querySelectorAll('.adsbygoogle[data-ad-format="auto"]:not([data-lazy-done])');
+  // Skip the first ad (top of fold); defer the rest
+  var belowFold=Array.from(ins).slice(1);
+  if(!belowFold.length)return;
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries,obs){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          (adsbygoogle=window.adsbygoogle||[]).push({});
+          e.target.setAttribute('data-lazy-done','1');
+          obs.unobserve(e.target);
+        }
+      });
+    },{rootMargin:'200px'});
+    belowFold.forEach(function(el){io.observe(el);});
+  } else {
+    belowFold.forEach(function(){(adsbygoogle=window.adsbygoogle||[]).push({});});
+  }
+})();
+</script>
 </body>
 </html>
