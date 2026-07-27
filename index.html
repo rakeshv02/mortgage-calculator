@@ -233,7 +233,7 @@ function calculate() {
 </div>
 <script>
 (function(){
-  var ins=document.querySelectorAll('.adsbygoogle[data-ad-format="auto"]:not([data-lazy-done])');
+  var ins=document.querySelectorAll('.adsbygoogle:not([data-lazy-done])');
   // Skip the first ad (top of fold); defer the rest
   var belowFold=Array.from(ins).slice(1);
   if(!belowFold.length)return;
