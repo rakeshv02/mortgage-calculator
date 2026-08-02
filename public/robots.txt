@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mortgage-calculator.tabutility.com/sitemap.xml
