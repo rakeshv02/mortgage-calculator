@@ -81,12 +81,12 @@ export default function App() {
       <div className="no-print" style={{ background: "#fff", borderBottom: "1px solid #e5e7eb", padding: "16px 24px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <a href="https://tabutility.com" style={{ fontSize: "15px", fontWeight: "700", color: "#6366f1", textDecoration: "none" }}>⌘ Tabutility</a>
-          <button onClick={() => window.print()} style={{ padding: "8px 18px", background: "#0f172a", color: "#fff", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>🖨️ Print / Save PDF</button>
+          <button onClick={() => window.print()} style={{ padding: "8px 18px", background: "#f8f7f4", color: "#fff", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>🖨️ Print / Save PDF</button>
         </div>
       </div>
 
       <div style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 16px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: "900", color: "#0f172a", margin: "0 0 6px" }}>Mortgage Affordability Calculator</h1>
+        <h1 style={{ fontSize: "30px", fontWeight: "900", color: "#f8f7f4", margin: "0 0 6px" }}>Mortgage Affordability Calculator</h1>
         <p style={{ fontSize: "15px", color: "#6b7280", margin: "0 0 28px" }}>Find out how much house you can afford based on your income, debts, and down payment.</p>
 
         {/* Inputs */}
@@ -187,13 +187,13 @@ export default function App() {
 
             {/* 3 Scenarios */}
             <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "16px" }}>
-              <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>Affordability Scenarios</h2>
+              <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#f8f7f4" }}>Affordability Scenarios</h2>
               <p style={{ margin: "0 0 16px", fontSize: "13px", color: "#6b7280" }}>Based on different debt-to-income guidelines</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
                 {result.scenarios.map(s => (
                   <div key={s.label} style={{ borderRadius: "12px", padding: "18px", border: `2px solid ${s.label === "Standard" ? s.color : "#e5e7eb"}`, background: s.label === "Standard" ? "#f5f3ff" : "#f9fafb" }}>
                     <div style={{ fontSize: "13px", fontWeight: "700", color: s.color, marginBottom: "10px" }}>{s.label} ({(s.pct * 100).toFixed(0)}% DTI)</div>
-                    <div style={{ fontSize: "22px", fontWeight: "900", color: "#0f172a" }}>${fmt(s.maxHome)}</div>
+                    <div style={{ fontSize: "22px", fontWeight: "900", color: "#f8f7f4" }}>${fmt(s.maxHome)}</div>
                     <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>${fmtD(s.monthly)}/mo payment</div>
                   </div>
                 ))}
@@ -202,7 +202,7 @@ export default function App() {
 
             {/* Monthly breakdown */}
             <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "32px" }}>
-              <h2 style={{ margin: "0 0 16px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>Monthly Payment Breakdown</h2>
+              <h2 style={{ margin: "0 0 16px", fontSize: "17px", fontWeight: "800", color: "#f8f7f4" }}>Monthly Payment Breakdown</h2>
               {[
                 { label: "Principal & Interest", value: result.actualMonthly, color: "#6366f1" },
                 { label: "Property Tax", value: result.monthlyTax, color: "#f59e0b" },
@@ -218,7 +218,7 @@ export default function App() {
                 </div>
               ))}
               <div style={{ display: "flex", justifyContent: "space-between", padding: "14px 0 0" }}>
-                <span style={{ fontSize: "15px", fontWeight: "800", color: "#0f172a" }}>Total Monthly</span>
+                <span style={{ fontSize: "15px", fontWeight: "800", color: "#f8f7f4" }}>Total Monthly</span>
                 <span style={{ fontSize: "18px", fontWeight: "900", color: "#6366f1" }}>${fmtD(result.actualMonthly + result.monthlyTax + result.monthlyIns + result.monthlyDebts)}</span>
               </div>
             </div>
@@ -227,7 +227,7 @@ export default function App() {
 
         {/* Resources */}
         <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", marginBottom: "32px" }}>
-          <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#0f172a" }}>🏠 Find Your Rate</h2>
+          <h2 style={{ margin: "0 0 6px", fontSize: "17px", fontWeight: "800", color: "#f8f7f4" }}>🏠 Find Your Rate</h2>
           <p style={{ margin: "0 0 16px", fontSize: "13px", color: "#6b7280" }}>Compare live mortgage rates before you apply</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
             {[
@@ -239,7 +239,7 @@ export default function App() {
               <a key={r.label} href={r.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", padding: "14px", background: "#f9fafb", borderRadius: "10px", border: "1px solid #e5e7eb", textDecoration: "none", transition: "all 0.2s" }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = "#6366f1"; e.currentTarget.style.background = "#f5f3ff"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.background = "#f9fafb"; }}>
-                <div style={{ fontSize: "13px", fontWeight: "700", color: "#0f172a", marginBottom: "3px" }}>{r.label}</div>
+                <div style={{ fontSize: "13px", fontWeight: "700", color: "#f8f7f4", marginBottom: "3px" }}>{r.label}</div>
                 <div style={{ fontSize: "11px", fontWeight: "700", color: "#6366f1", textTransform: "uppercase", letterSpacing: "0.04em" }}>via {r.source} →</div>
               </a>
             ))}

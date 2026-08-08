@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="theme-color" content="#0f172a" />
+<meta name="theme-color" content="#f8f7f4" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 <title>Mortgage Calculator — Tabutility</title>
 <meta name="description" content="Free mortgage calculator. Calculate monthly repayments, total interest and affordability for any mortgage amount, rate and term."/>
 <meta name="keywords" content="mortgage calculator, mortgage repayment calculator, how much can i borrow, monthly mortgage payment, mortgage affordability"/>
@@ -29,40 +30,48 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is a mortgage payment calculated?","acceptedAnswer":{"@type":"Answer","text":"Using the amortisation formula with principal (price minus deposit), monthly interest rate and number of payments."}},{"@type":"Question","name":"What is LTV?","acceptedAnswer":{"@type":"Answer","text":"Loan-to-Value — the percentage of the property value you're borrowing. Lower LTV usually means better rates."}},{"@type":"Question","name":"Is the Mortgage Calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes — completely free, no sign-up needed."}},{"@type":"Question","name":"Does it work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes — works on any device."}}]}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
-nav{background:#1e293b;border-bottom:1px solid #334155;padding:14px 24px;display:flex;align-items:center;gap:16px}
-nav a{color:#94a3b8;text-decoration:none;font-size:14px}
-nav a:hover{color:#f1f5f9}
-nav .brand{color:#38bdf8;font-weight:700;font-size:18px}
-.ad-banner{background:#1e293b;border-bottom:1px solid #334155;padding:4px;text-align:center}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f4;color:#0f172a;min-height:100vh}
+nav{background:#ffffff;border-bottom:1px solid #e2e8f0;padding:14px 24px;display:flex;align-items:center;gap:16px}
+nav a{color:#64748b;text-decoration:none;font-size:14px}
+nav a:hover{color:#0f172a}
+nav .brand{color:#0f172a;font-weight:700;font-size:18px}
+.ad-banner{background:#ffffff;border-bottom:1px solid #e2e8f0;padding:4px;text-align:center}
 #app{max-width:680px;margin:8px auto;padding:0 16px 40px}
-h1{font-size:26px;font-weight:700;color:#f1f5f9;margin:24px 0 6px;text-align:center}
-.subtitle{color:#94a3b8;font-size:14px;text-align:center;margin-bottom:24px}
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:24px;margin-bottom:16px}
+h1{font-size:26px;font-weight:700;color:#0f172a;margin:24px 0 6px;text-align:center}
+.subtitle{color:#64748b;font-size:14px;text-align:center;margin-bottom:24px}
+.card{background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;margin-bottom:16px}
 .cur-row{display:flex;gap:8px;margin-bottom:20px}
-.cur-btn{padding:9px 18px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#94a3b8;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
-.cur-btn.active{background:#334155;color:#f1f5f9}
-label{display:block;font-size:13px;font-weight:600;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;margin-top:16px}
+.cur-btn{padding:9px 18px;border-radius:8px;border:1px solid #e2e8f0;background:#f8f7f4;color:#64748b;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.cur-btn.active{background:#e2e8f0;color:#0f172a}
+label{display:block;font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;margin-top:16px}
 label:first-of-type{margin-top:0}
 .input-group{position:relative}
 .input-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:#64748b}
-input[type="number"]{width:100%;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px 14px 12px 36px;color:#f1f5f9;font-size:16px;outline:none;-moz-appearance:textfield;transition:border-color .2s}
+input[type="number"]{width:100%;background:#f8f7f4;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px 12px 36px;color:#0f172a;font-size:16px;outline:none;-moz-appearance:textfield;transition:border-color .2s}
 input.no-prefix{padding-left:14px}
-input[type="number"]:focus{border-color:#38bdf8}
+input[type="number"]:focus{border-color:#0f172a}
 input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
-.btn{display:block;width:100%;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;padding:12px 28px;font-size:15px;font-weight:700;cursor:pointer;margin-top:20px;transition:background .2s}
-.btn:hover{background:#0ea5e9}
+.btn{display:block;width:100%;background:#0f172a;color:#f8f7f4;border:none;border-radius:8px;padding:12px 28px;font-size:15px;font-weight:700;cursor:pointer;margin-top:20px;transition:background .2s}
+.btn:hover{background:#334155}
 .summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
-.sum-item{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;text-align:center}
-.sum-item.highlight{border-color:#38bdf8}
-.sum-item .val{font-size:22px;font-weight:700;color:#38bdf8}
-.sum-item .lbl{font-size:11px;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
-.ltv-bar-wrap{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:16px;margin-bottom:0}
-.ltv-bar-bg{background:#1e293b;border-radius:999px;height:10px;overflow:hidden;margin:8px 0}
+.sum-item{background:#f8f7f4;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center}
+.sum-item.highlight{border-color:#0f172a}
+.sum-item .val{font-size:22px;font-weight:700;color:#0f172a}
+.sum-item .lbl{font-size:11px;color:#64748b;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.ltv-bar-wrap{background:#f8f7f4;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:0}
+.ltv-bar-bg{background:#ffffff;border-radius:999px;height:10px;overflow:hidden;margin:8px 0}
 .ltv-bar-fill{height:100%;border-radius:999px;transition:width .4s,background .4s}
 .ltv-labels{display:flex;justify-content:space-between;font-size:11px;color:#64748b}
 .hidden{display:none}
 @media(max-width:480px){.summary{grid-template-columns:1fr}.sum-item.highlight{order:-1}}
+</style>
+<style id="tabutility-brand">
+/* empty ad slots: reserve space, no bordered box */
+.ad-banner,.ad-slot,.ad-container{background:transparent!important;border:none!important;border-bottom:none!important;box-shadow:none!important}
+ins.adsbygoogle,.ad-banner iframe,.ad-slot iframe{visibility:hidden!important}
+ins.adsbygoogle[data-ad-status="filled"],.ad-banner ins[data-ad-status="filled"] iframe,.ad-slot ins[data-ad-status="filled"] iframe{visibility:visible!important}
+nav .brand{color:#0f172a}
+body{-webkit-font-smoothing:antialiased}
 </style>
 </head>
 <body>
@@ -93,7 +102,7 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 
     <label>Annual Interest Rate (%)</label>
     <div class="input-group">
-      <span class="input-prefix" style="font-size:14px;color:#94a3b8">%</span>
+      <span class="input-prefix" style="font-size:14px;color:#64748b">%</span>
       <input type="number" id="rate" placeholder="4.5" min="0" max="30" step="0.05"/>
     </div>
 
@@ -118,7 +127,7 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
         <div class="sum-item"><div class="val" id="r-ltv-val">0%</div><div class="lbl">LTV (Loan-to-Value)</div></div>
       </div>
       <div class="ltv-bar-wrap">
-        <div style="font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em">Loan-to-Value Ratio</div>
+        <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Loan-to-Value Ratio</div>
         <div class="ltv-bar-bg"><div class="ltv-bar-fill" id="ltv-bar" style="width:0%"></div></div>
         <div class="ltv-labels"><span>0%</span><span>80% (ideal)</span><span>100%</span></div>
       </div>
@@ -129,27 +138,27 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 <div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:24px;margin-bottom:8px;padding:0 16px">
   <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
     
-<div style="margin:0 auto 24px;max-width:640px;background:#1e293b;border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1px solid #334155" onclick="window.open('https://www.amazon.co.uk/s?k=mortgage%20property%20buying%20books&tag=tabutility-20','_blank','noopener noreferrer')" title="First-time buyer or remortgaging?">
+<div style="margin:0 auto 24px;max-width:640px;background:#ffffff;border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1px solid #e2e8f0" onclick="window.open('https://www.amazon.co.uk/s?k=mortgage%20property%20buying%20books&tag=tabutility-20','_blank','noopener noreferrer')" title="First-time buyer or remortgaging?">
   <span style="font-size:28px;flex-shrink:0">📚</span>
   <div style="min-width:0">
-    <div style="font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:3px">First-time buyer or remortgaging?</div>
-    <div style="font-size:12px;color:#94a3b8">Browse mortgage & property books <span style="color:#f59e0b;white-space:nowrap">→ Browse on Amazon</span></div>
+    <div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px">First-time buyer or remortgaging?</div>
+    <div style="font-size:12px;color:#64748b">Browse mortgage & property books <span style="color:#f59e0b;white-space:nowrap">→ Browse on Amazon</span></div>
     <div style="font-size:10px;color:#475569;margin-top:3px">As an Amazon Associate we earn from qualifying purchases.</div>
   </div>
 </div>
-<h2 style="font-size:15px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px">Related Tools</h2>
+<h2 style="font-size:15px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px">Related Tools</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
-      <a href="https://rent-vs-buy.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
-        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Rent vs Buy Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      <a href="https://rent-vs-buy.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#0f172a">Rent vs Buy Calculator</div><div style="font-size:11px;color:#64748b;margin-top:2px">Calculators</div>
       </a>
-      <a href="https://uk-stamp-duty-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
-        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Stamp Duty Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      <a href="https://uk-stamp-duty-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#0f172a">Stamp Duty Calculator</div><div style="font-size:11px;color:#64748b;margin-top:2px">Calculators</div>
       </a>
-      <a href="https://rental-yield.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
-        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Rental Yield Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      <a href="https://rental-yield.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#0f172a">Rental Yield Calculator</div><div style="font-size:11px;color:#64748b;margin-top:2px">Calculators</div>
       </a>
-      <a href="https://loan-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
-        <div style="font-size:13px;font-weight:600;color:#f1f5f9">Loan Calculator</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Calculators</div>
+      <a href="https://loan-calculator.tabutility.com/" style="display:block;background:rgba(255,255,255,0.07);border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit">
+        <div style="font-size:13px;font-weight:600;color:#0f172a">Loan Calculator</div><div style="font-size:11px;color:#64748b;margin-top:2px">Calculators</div>
       </a>
     </div>
   </div>
@@ -157,22 +166,22 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 
 <div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:8px;margin-bottom:24px;padding:0 16px">
   <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
-    <h2 style="font-size:15px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Frequently Asked Questions</h2>
+    <h2 style="font-size:15px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Frequently Asked Questions</h2>
     <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
-      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">How is a mortgage payment calculated?</div>
-      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Using the amortisation formula with principal (price minus deposit), monthly interest rate and number of payments.</div>
+      <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">How is a mortgage payment calculated?</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Using the amortisation formula with principal (price minus deposit), monthly interest rate and number of payments.</div>
     </div>
     <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
-      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">What is LTV?</div>
-      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Loan-to-Value — the percentage of the property value you're borrowing. Lower LTV usually means better rates.</div>
+      <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">What is LTV?</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Loan-to-Value — the percentage of the property value you're borrowing. Lower LTV usually means better rates.</div>
     </div>
     <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 0">
-      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">Is this free?</div>
-      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Yes — completely free, no sign-up needed.</div>
+      <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">Is this free?</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Yes — completely free, no sign-up needed.</div>
     </div>
     <div style="padding:14px 0">
-      <div style="font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:6px">Works on mobile?</div>
-      <div style="font-size:13px;color:#94a3b8;line-height:1.5">Yes — works on any device.</div>
+      <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">Works on mobile?</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Yes — works on any device.</div>
     </div>
   </div>
 </div>
@@ -230,12 +239,12 @@ function calculate() {
 }
 </script>
 
-<div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:8px;margin-bottom:16px;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<div style="max-width:860px;margin-left:auto;margin-right:auto;margin-top:8px;margin-bottom:16px;padding:0 16px;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
-    <h2 style="font-size:15px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">Embed This Tool</h2>
+    <h2 style="font-size:15px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">Embed This Tool</h2>
     <p style="font-size:13px;color:#64748b;margin-bottom:12px">Add this  to your website or blog for free. Just copy and paste the code below:</p>
-    <div style="background:#0f172a;border:1px solid #334155;border-radius:8px;padding:12px;font-family:monospace;font-size:12px;color:#7dd3fc;word-break:break-all;margin-bottom:10px;cursor:pointer" id="embed-code-">&lt;iframe src="" width="100%" height="600" frameborder="0" style="border-radius:12px" title=" by Tabutility"&gt;&lt;/iframe&gt;</div>
-    <button onclick="var t=document.getElementById('embed-code-');navigator.clipboard.writeText(t.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Embed Code',2000)})" style="background:#38bdf8;color:#0f172a;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Copy Embed Code</button>
+    <div style="background:#f8f7f4;border:1px solid #e2e8f0;border-radius:8px;padding:12px;font-family:'Inter',monospace;font-size:12px;color:#7dd3fc;word-break:break-all;margin-bottom:10px;cursor:pointer" id="embed-code-">&lt;iframe src="" width="100%" height="600" frameborder="0" style="border-radius:12px" title=" by Tabutility"&gt;&lt;/iframe&gt;</div>
+    <button onclick="var t=document.getElementById('embed-code-');navigator.clipboard.writeText(t.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Embed Code',2000)})" style="background:#0f172a;color:#f8f7f4;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Copy Embed Code</button>
     <span style="font-size:11px;color:#475569;margin-left:12px">Free to use — attribution appreciated but not required</span>
   </div>
 </div>
@@ -261,5 +270,11 @@ function calculate() {
   }
 })();
 </script>
+<footer style="border-top:1px solid #e2e8f0;background:#ffffff;margin-top:48px;padding:28px 24px;text-align:center;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;color:#64748b;line-height:1.8">
+<div style="font-weight:700;color:#0f172a;font-size:15px">⚡ Tabutility</div>
+<div>Free, private, browser-based tools. No sign-up, no tracking.</div>
+<div><a href="https://tabutility.com" style="color:#0f172a;font-weight:600;text-decoration:none">All Tools</a> · <a href="https://tabutility.com/blog/" style="color:#64748b;text-decoration:none">Blog</a> · <a href="https://tabutility.com/#about" style="color:#64748b;text-decoration:none">About</a></div>
+<div style="margin-top:6px;color:#94a3b8">© 2026 Tabutility</div>
+</footer>
 </body>
 </html>
