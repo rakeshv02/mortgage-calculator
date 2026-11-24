@@ -70,6 +70,7 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 nav .brand{color:#fff}
 nav a:hover{color:#818cf8}
 input:focus,select:focus,textarea:focus{border-color:#818cf8!important}
+input[type="number"],select,button{min-height:44px;box-sizing:border-box}
 </style>
 </head>
 <body>
@@ -79,9 +80,9 @@ input:focus,select:focus,textarea:focus{border-color:#818cf8!important}
   <p class="subtitle">Calculate monthly repayments and total cost of your mortgage</p>
   <div class="card">
     <div class="cur-row">
-      <button class="cur-btn active" onclick="setCur('$','USD')">$ USD</button>
-      <button class="cur-btn" onclick="setCur('£','GBP')">£ GBP</button>
-      <button class="cur-btn" onclick="setCur('€','EUR')">€ EUR</button>
+      <button class="cur-btn active" onclick="setCur('$',this)">$ USD</button>
+      <button class="cur-btn" onclick="setCur('£',this)">£ GBP</button>
+      <button class="cur-btn" onclick="setCur('€',this)">€ EUR</button>
     </div>
 
     <label>Property Price</label>
@@ -177,12 +178,12 @@ input:focus,select:focus,textarea:focus{border-color:#818cf8!important}
 
 <script>
 let sym = '$';
-function setCur(s) {
+function setCur(s, button) {
   sym = s;
   document.getElementById('sym1').textContent = s;
   document.getElementById('sym2').textContent = s;
   document.querySelectorAll('.cur-btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
+  if (button) button.classList.add('active');
   if(document.getElementById('price').value) calculate();
 }
 
@@ -191,16 +192,18 @@ function calculate() {
   const deposit = parseFloat(document.getElementById('deposit').value) || 0;
   const annualRate = parseFloat(document.getElementById('rate').value);
   const termYears = parseFloat(document.getElementById('term').value);
-  if (!price||!annualRate||!termYears||price<=0) { alert('Please fill in all required fields.'); return; }
-  if (deposit >= price) { alert('Deposit must be less than property price.'); return; }
+  if (![price, deposit, annualRate, termYears].every(Number.isFinite) || price <= 0 || annualRate < 0 || termYears <= 0 || termYears > 100) { alert('Enter a positive price, a rate of zero or more, and a term up to 100 years.'); return; }
+  if (deposit < 0 || deposit >= price) { alert('Deposit must be zero or more and less than property price.'); return; }
 
   const P = price - deposit;
   const n = termYears * 12;
+  if (!Number.isInteger(n)) { alert('The mortgage term must equal a whole number of months.'); return; }
   const r = annualRate / 100 / 12;
 
   let monthly;
   if (r === 0) { monthly = P / n; }
-  else { monthly = P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }
+  else { monthly = P * r / -Math.expm1(-n * Math.log1p(r)); }
+  if (!Number.isFinite(monthly)) { alert('These inputs produce an amount too large to calculate.'); return; }
 
   const totalRepaid = monthly * n;
   const totalInterest = totalRepaid - P;
@@ -266,7 +269,7 @@ function calculate() {
 </div>
 <footer style="background:#1a1a2e;margin-top:48px;padding:28px 24px;text-align:center;font-family:'Segoe UI',system-ui,Arial,sans-serif;font-size:13px;color:#94a3b8;line-height:1.8">
 <div style="font-weight:700;color:#fff;font-size:15px">⚡ Tabutility</div>
-<div>Free, private, browser-based tools. No sign-up, no tracking.</div>
+<div>Free, browser-based tools. No sign-up. Advertising and analytics are explained in our privacy policy.</div>
 <div><a href="https://tabutility.com" style="color:#818cf8;font-weight:600;text-decoration:none">All Tools</a> · <a href="https://tabutility.com/blog/" style="color:#94a3b8;text-decoration:none">Blog</a> · <a href="https://tabutility.com/#about" style="color:#94a3b8;text-decoration:none">About</a></div>
 <div style="margin-top:10px"><a href="https://ko-fi.com/tabutility" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:#ff5e5b;color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;text-decoration:none;font-size:13px">☕ Buy me a coffee</a></div>
 <div style="margin-top:8px;color:#64748b">© 2026 Tabutility</div>
@@ -283,10 +286,10 @@ function calculate() {
         <p style="color:#94a3b8;margin:0 0 12px;">$90,000 household income, $400/month existing debts, buying a $350,000 home with 10% down:</p>
         <ul style="list-style:none;padding:0;margin:0;color:#cbd5e1;">
           <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Loan amount: <strong style="color:#f1f5f9;">$315,000</strong></li>
-          <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Monthly P&amp;I at 6.8%: <strong style="color:#34d399;">$2,055</strong></li>
+          <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Monthly P&amp;I at 6.8% over 30 years: <strong style="color:#34d399;">$2,053.56</strong></li>
           <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Estimated taxes + insurance: <strong style="color:#f1f5f9;">$450/month</strong></li>
-          <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Front-end DTI: <strong style="color:#34d399;">33%</strong> (under 36% threshold ✓)</li>
-          <li style="padding:6px 0;">Back-end DTI: <strong style="color:#f87171;">39%</strong> (within 43% limit ✓)</li>
+          <li style="padding:6px 0;border-bottom:1px solid #1e293b;">Illustrative housing-to-income ratio: <strong style="color:#34d399;">33.4%</strong></li>
+          <li style="padding:6px 0;">Including the stated debt payments: <strong style="color:#f87171;">38.7%</strong>; actual lender limits vary</li>
         </ul>
       </div>
 
